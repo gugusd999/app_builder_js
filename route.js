@@ -187,14 +187,14 @@ callMaster('jquery', function () {
 
               axios.get(baseUrl + a + '.js?v=' + times).then(function (res) {
                 rootPageData[a] = res.data;
-              }, function (error) {})
+              }, function (error) { })
             };
 
             const loadPage = function (a, func) {
 
               var panjang = a.length;
 
-              var html = '';
+              helper.html = '';
 
               var numR = 0;
 
@@ -209,10 +209,10 @@ callMaster('jquery', function () {
                 var url = baseUrl + rootDir + a[numR] + '.htm?v=' + times;
 
                 axios.get(url).then(function (res) {
-                  html += res.data;
                   numR += 1;
+                  helper.html += res.data;
                   if (numR === panjang) {
-                    document.getElementById('root').innerHTML = html;
+                    helper.page = document.getElementById('root');
                     setTimeout(() => {
                       jQuery(document).ready(function ($) {
                         func();
@@ -221,7 +221,7 @@ callMaster('jquery', function () {
                   } else {
                     call();
                   }
-                }, function (error) {})
+                }, function (error) { })
               }
               call()
             };
@@ -250,22 +250,32 @@ callMaster('jquery', function () {
 
                       eval(
                         `
-                          helper.fungsiBaru = ${data};
 
-                          helper.func = ${func};
-
-
-                          function hallo(){
-                            console.log('look at me');
+                          class Controller{
+                            constructor(){
+                              this.prop = '';
+                              this.helper = {}
+                            }
+                            properties(b){
+                              this.prop = b;
+                            }
+                            helpercall(c){
+                              this.helper = c;
+                            }
+                            ${data}
+                            loadhtml(){
+                              this.helper.page.innerHTML = this.helper.html;
+                            }
                           }
-
-
-
-                        `
+                          var dd = new Controller();
+                          dd.properties(b);
+                          dd.helpercall(helper);
+                          dd.run();
+                          dd.loadhtml();
+                          `
                       );
 
                       newCount += Number(1);
-                      fuckMan(b);
                       $('#preload').fadeOut(300);
                     } catch (rejectedValue) {
                       rootCall(a, b);
@@ -282,7 +292,7 @@ callMaster('jquery', function () {
             root.verifydata = {}
             root.verifydata.data = {}
 
-            root.navSelect = function (a) {}
+            root.navSelect = function (a) { }
 
             root.get = function (a, func, verify = false) {
               root.data['#' + a] = func, 100;
@@ -809,7 +819,7 @@ callMaster('jquery', function () {
                   length: data.length,
                   html: datakuopsi
                 }
-              } else {}
+              } else { }
               var html = `<option value="">pilih data</option>`;
               helper.optionBackup[a].html.forEach((item) => {
                 if (eval(`item.${c.id}`) === datab) {
@@ -904,8 +914,8 @@ callMaster('jquery', function () {
       <select ${attr}>
         <option value="">Pilih</option>
         ${getdata.map((item) => {
-    return `<option value="${item[id]}">${item[text]}</option>`
-  }).join("")}
+                return `<option value="${item[id]}">${item[text]}</option>`
+              }).join("")}
       </select>
     `
             }

@@ -22,11 +22,11 @@ if (isset($_POST['key'])) {
 
     $host = 'localhost';
 
-    $user = 'gugus';
+    $user = 'root';
 
     $password = 'gugus';
 
-    $database = 'syncron';
+    $database = 'builder';
 
 
     $conn = mysqli_connect($host, $user, $password, $database);
