@@ -23,7 +23,6 @@ if ($js) {
 		<title>Igeiatech</title>
 	</head>
 	<script src="./route.js"></script>
-
 	<body>
 		<div id="root">
 
@@ -32,6 +31,10 @@ if ($js) {
 		<div id="preload" class="transition">
 		</div>
 	</body>
+
+	<script>
+		cf = {}
+	</script>
 
 	</html>
 

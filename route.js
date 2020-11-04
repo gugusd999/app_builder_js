@@ -1,5 +1,7 @@
 var domLoadData = document.getElementById('app');
 
+
+
 function callMaster(a, func) {
   var datesMM = function () {
     return new Date().getTime();
@@ -250,11 +252,12 @@ callMaster('jquery', function () {
 
                       eval(
                         `
-
                           class Controller{
                             constructor(){
                               this.prop = '';
                               this.helper = {}
+                              this.page = null;
+                              this.html = null;
                             }
                             properties(b){
                               this.prop = b;
@@ -262,16 +265,28 @@ callMaster('jquery', function () {
                             helpercall(c){
                               this.helper = c;
                             }
+                            contoh(mm){
+                              console.log(mm);
+                              alert('laila');
+                            }
                             ${data}
                             loadhtml(){
-                              this.helper.page.innerHTML = this.helper.html;
+                              this.page = this.helper.page;
+                              this.html = this.helper.html;
+                              this.page.innerHTML = this.html;
                             }
                           }
-                          var dd = new Controller();
-                          dd.properties(b);
-                          dd.helpercall(helper);
-                          dd.run();
-                          dd.loadhtml();
+                            var dd = new Controller();
+                            dd.properties(b);
+                            dd.helpercall(helper);
+                            dd.run();
+                            dd.loadhtml();
+
+                            cf.fn = function (ff = '', arg = '') {
+                              var dd = new Controller();
+                              dd[ff](arg);
+                            }
+
                           `
                       );
 
@@ -1107,11 +1122,9 @@ callMaster('jquery', function () {
               return html;
             }
 
-
-
-
-
-
+            function laila() {
+              alert('sibuk')
+            }
 
             setTimeout(function () {
               axios.get('./appv09031997bygugusd999/route-config.js?v=' + datesMM())
