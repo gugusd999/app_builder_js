@@ -212,7 +212,6 @@ callMaster('jquery', function () {
 
                 axios.get(url).then(function (res) {
                   numR += 1;
-                  helper.html += res.data;
                   if (numR === panjang) {
                     helper.page = document.getElementById('root');
                     setTimeout(() => {
@@ -221,6 +220,7 @@ callMaster('jquery', function () {
                       });
                     }, 100)
                   } else {
+                    helper.html += res.data;
                     call();
                   }
                 }, function (error) { })
@@ -258,16 +258,67 @@ callMaster('jquery', function () {
                               this.helper = {}
                               this.page = null;
                               this.html = null;
+                              this.db = null;
                             }
+
+                            getid(aw){
+                              return document.getElementById(aw);
+                            }
+
+
+                            submit(dd = 'Submit', fc = "btn btn-primary"){
+                              return '<button type="submit" class="'+fc+'">'+dd+'</button>';
+                            }
+
+                            input(data){
+
+                              var value = "";
+                              if (data.value != undefined) {
+                                  value = data.value;
+                              }
+
+                              var name = "";
+                              if (data.name != undefined) {
+                                  name = data.name;
+                              }
+
+                              var type = "";
+                              if (data.type != undefined) {
+                                  type = data.type;
+                              }
+
+                              var placeholder = "";
+                              if (data.placeholder != undefined) {
+                                  placeholder = data.placeholder;
+                              }
+
+                              var ck = '<div class="form-group">';
+                              ck += '<label>';
+                              ck += data.title;
+                              ck += '</label>';
+                              ck += '<input type="';
+                              ck += type;
+                              ck += '" class="form-control" name="';
+                              ck += name;
+                              ck += '" placeholder="';
+                              ck += placeholder;
+                              ck += '" value="';
+                              ck += value;
+                              ck += '" />';
+                              ck += '</div>';
+
+                              return ck;
+
+                          }
+
                             properties(b){
                               this.prop = b;
                             }
                             helpercall(c){
                               this.helper = c;
                             }
-                            contoh(mm){
-                              console.log(mm);
-                              alert('laila');
+                            dbnew(c){
+                              this.db = c;
                             }
                             ${data}
                             loadhtml(){
@@ -279,11 +330,14 @@ callMaster('jquery', function () {
                             var dd = new Controller();
                             dd.properties(b);
                             dd.helpercall(helper);
-                            dd.run();
+                            dd.dbnew(DB);
                             dd.loadhtml();
-
+                            dd.run();
                             cf.fn = function (ff = '', arg = '') {
                               var dd = new Controller();
+                              dd.properties(b);
+                              dd.helpercall(helper);
+                              dd.dbnew(DB);
                               dd[ff](arg);
                             }
 
@@ -388,8 +442,8 @@ callMaster('jquery', function () {
             }
 
             window.onhashchange = function () {
+              helper.html = '';
               newCount = 0;
-
               $('#preload').fadeIn(100);
 
               setTimeout(function () {
@@ -1124,6 +1178,18 @@ callMaster('jquery', function () {
 
             function laila() {
               alert('sibuk')
+            }
+
+            helper.formData = function (el) {
+              var obj = {}
+
+              var c = new FormData(el);
+
+              for (var pair of c.entries()) {
+                obj[pair[0]] = pair[1];
+              }
+
+              return obj;
             }
 
             setTimeout(function () {

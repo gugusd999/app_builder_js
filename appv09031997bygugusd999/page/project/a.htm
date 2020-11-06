@@ -18,17 +18,8 @@
 				<!-- Card Body -->
 				<div class="card-body">
 					<div class="card-body">
-						<form id="myform" onsubmit="bantuan.simpandata(this)">
-							<div class="form-group">
-								<label for="">kode</label>
-								<input type="text" class="form-control" placeholder="Inputkan project ..." name="kode">
-							</div>
-							<div class="form-group">
-								<label for="">nama</label>
-								<input type="text" class="form-control" placeholder="Inputkan nama ..." name="nama">
-							</div>
-							<button type="button" onclick="cf.fn('contoh', this)"
-								class="btn btn-primary mt-3">submit</button>
+						<form onsubmit="cf.fn('formsimpan', this); return false;" id="formsaya">
+
 						</form>
 					</div>
 				</div>
